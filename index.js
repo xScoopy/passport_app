@@ -2,7 +2,7 @@
 const express = require('express');
 const app = express();
 
-app.use(express);
+app.use(express.static(__dirname));
 
 const bodyParser = require('body-parser');
 const expressSession = require('express-session')({
