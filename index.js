@@ -1,4 +1,5 @@
 //Express setup
+require('dotenv').config();
 const express = require('express');
 const app = express();
 
@@ -88,6 +89,12 @@ app.get('/user',
   connectEnsureLogin.ensureLoggedIn(),
   (req, res) => res.send({user: req.user})
 );
+
+/* REGISTER SOME USERS */
+
+// UserDetails.register({username:'paul', active: false}, 'paul');
+// UserDetails.register({username:'jay', active: false}, 'jay');
+// UserDetails.register({username:'roy', active: false}, 'roy');
 
 const port = process.env.PORT || 3000;
 app.listen(port, () => console.log('App listening on port ' + port));
