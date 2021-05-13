@@ -6,7 +6,7 @@ app.use(express.static(__dirname));
 
 const bodyParser = require('body-parser');
 const expressSession = require('express-session')({
-    secret: 'secret', 
+    secret: process.env.SECRET, 
     resave: false,
     saveUnitialized: false
 })
