@@ -9,11 +9,33 @@ const expressSession = require('express-session')({
     secret: process.env.SECRET, 
     resave: false,
     saveUnitialized: false
-})
+});
 
-app.use(bodyParser.json())
+app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true}));
-app.use(expressSession)
+app.use(expressSession);
+
+//Passport initialization
+const passport = require('passport');
+
+app.use(passport.initialize());
+app.use(passport.session());
+
+//Mongoose Setup
+const mongoose = require('mongoose');
+const passportLocalMongoose = require('passport-local-mongoose');
+
+mongoose.connect('mongodb://localhost/MyDatabase',
+    { useNewUrlParser : true, useUnifiedTopology : true});
+
+const Schema = mongoose.Schema;
+const UserDetail = new Schema({
+    username: String, 
+    password: String
+});
+
+UserDetail.plugin(passportLocalMongoose)
+const UserDetails = mongoose.model('userInfo', UserDetail, 'userInfo');
 
 const port = process.env.PORT || 3000;
 app.listen(port, () => console.log('App listening on port ' + port));
